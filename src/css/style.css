@@ -1,0 +1,52 @@
+#person{
+    height: 32px;
+    width: 30px;
+    background: url('../img/detective.png') -32px 0px;
+    position: absolute;
+    background-repeat: no-repeat;
+    left: 0;
+    top: 0;
+}
+.mob_keyWrapper{
+    width: 100vw;
+    height: 120px;
+    bottom: 0vh;
+    position: absolute;
+    display: none;
+}
+.mob_keyWrapper div{
+    position: relative;
+}
+#mob_keypad{
+    width:50vw;
+    height:10vh;
+    margin: auto;
+    top:5vh;
+    bottom:0;
+    left:0;
+    right:0;
+    position: absolute;
+}
+.mob_tableRow{
+    height: 50%;
+    text-align: center;
+}
+.mob_leftBtn,.mob_rightBtn{
+    background-color: chartreuse;
+    width: 50px;
+}
+.mob_upBtn,.mob_downBtn{
+    background-color: purple;
+    width: 100px;
+}
+table{
+    margin: 0 auto;
+    border: 1px solid black;
+    height: 100%;
+}
+
+@media (pointer: coarse) {
+    .mob_keyWrapper {
+        display: block;
+    }
+}

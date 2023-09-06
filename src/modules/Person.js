@@ -1,6 +1,11 @@
+import '../css/style.css';
+
+function Person() {
+
 const person = document.getElementById("person");
 const edge = (dir) => {
-    const currentPosition = person.node.getBoundingClientRect();
+    console.log(person);
+    const currentPosition = person.getBoundingClientRect();
     const currentTop = currentPosition.top;
     const currentLeft = currentPosition.left;
     switch (dir) {
@@ -90,6 +95,11 @@ for (let i = 0; i < mobButtons.length; i++) {
 }
 
 
-const imgMove = (dir) => {
-    person.style.backgroundPosition = `-256px 0px`;
+
+return(
+    <div id="person"></div>
+)
+
 }
+
+export default Person;

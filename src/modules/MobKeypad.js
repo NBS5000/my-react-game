@@ -1,6 +1,12 @@
+import '../css/style.css';
+import {isMobile} from 'react-device-detect';
+
+function MobKeypad() {
+
 const person = document.getElementById("person");
 const edge = (dir) => {
-    const currentPosition = person.node.getBoundingClientRect();
+    console.log(person);
+    const currentPosition = person.getBoundingClientRect();
     const currentTop = currentPosition.top;
     const currentLeft = currentPosition.left;
     switch (dir) {
@@ -46,39 +52,6 @@ const edge = (dir) => {
     }
 
 }
-        
-const move = {
-    up() {
-        console.log("Moved up");
-        edge("up");
-    },
-    down() {
-        console.log("Moved down");
-        edge("down");
-    },
-    left(){
-        console.log("Moved left");
-        edge("left");
-    },
-    right(){
-        console.log("Moved right");
-        edge("right");
-    },
-};
-const action = {
-    w: {keydown: move.up},
-    ArrowUp: {keydown: move.up},
-    s: {keydown: move.down},
-    ArrowDown: {keydown: move.down},
-    a: {keydown: move.left},
-    ArrowLeft: {keydown: move.left},
-    d: {keydown: move.right},
-    ArrowRight: {keydown: move.right}
-}
-const handler = (ev) => {
-    action[ev.key][ev.type]();
-};
-['keydown'].forEach((evType) => {document.body.addEventListener(evType,handler);});
 
 const mobButtons = document.getElementsByClassName("mob_btn");
 const mobAction = (ev) => {
@@ -89,7 +62,25 @@ for (let i = 0; i < mobButtons.length; i++) {
     mobButtons[i].addEventListener('click', mobAction, false);
 }
 
+return (
+    <div class="mob_keyWrapper">
+        <div>
+            <div id="mob_keypad">
+                <table>
+                    <tr class="mob_tableRow">
+                        <td class="mob_btn mob_leftBtn" rowspan="2" data-move="left">Left</td>
+                        <td class="mob_btn mob_upBtn" colspan="2" data-move="up">Up</td>
+                        <td class="mob_btn mob_rightBtn" rowspan="2" data-move="right">Right</td>
+                    </tr>
+                    <tr class="mob_tableRow">
+                        <td class="mob_btn mob_downBtn" colspan="2" data-move="down">Down</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 
-const imgMove = (dir) => {
-    person.style.backgroundPosition = `-256px 0px`;
+    );
 }
+
+export default MobKeypad;
