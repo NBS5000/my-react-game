@@ -1,2 +1,2 @@
 
- [test](./public/test.html)
+ [test](./public/index.html)
