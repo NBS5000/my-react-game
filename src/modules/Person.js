@@ -4,15 +4,19 @@ import '../css/style.css';
 function Person() {
     const ref = useRef(null);
     //const person = document.getElementById("person");
-    const person = ref.current;
-    /*console.log(person);*/
+    //const person = ref.current;
     
+    const handler = (ev) => {
+        action[ev.key][ev.type]();
+    };
 
+    let person;
     useEffect(() => {
-        const el = ref.current;
-        console.log(el);
-    }, []);
+        person = ref.current;
+        //console.log(el);
+    },handler);
     const edge = (dir) => {
+        console.log("There:")
         console.log(person);
         const currentPosition = person.getBoundingClientRect();
         const currentTop = currentPosition.top;
@@ -89,9 +93,7 @@ function Person() {
         d: {keydown: move.right},
         ArrowRight: {keydown: move.right}
     }
-    const handler = (ev) => {
-        action[ev.key][ev.type]();
-    };
+
     ['keydown'].forEach((evType) => {document.body.addEventListener(evType,handler);});
 
     const mobButtons = document.getElementsByClassName("mob_btn");
