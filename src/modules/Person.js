@@ -1,8 +1,17 @@
+import {useRef, useEffect} from 'react';
 import '../css/style.css';
 
 function Person() {
+    const ref = useRef(null);
+    //const person = document.getElementById("person");
+    const person = ref.current;
+    /*console.log(person);*/
+    
 
-    const person = document.getElementById("person");
+    useEffect(() => {
+        const el = ref.current;
+        console.log(el);
+    }, []);
     const edge = (dir) => {
         console.log(person);
         const currentPosition = person.getBoundingClientRect();
@@ -97,7 +106,7 @@ function Person() {
 
 
     return(
-        <div id="person"></div>
+        <div id="person" ref={ref}></div>
     )
 
 }
