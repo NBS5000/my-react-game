@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+        }
+        body{
+            background-color: beige;
+
+        }
+        #person{
+            height: 50px;
+            width: 50px;
+            background-color: blue;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .mob_keyWrapper{
+            width: 100vw;
+            height: 120px;
+            bottom: 0vh;
+            position: absolute;
+            display: none;
+        }
+        .mob_keyWrapper div{
+            position: relative;
+        }
+        #mob_keypad{
+            width:50vw;
+            height:10vh;
+            margin: auto;
+            top:5vh;
+            bottom:0;
+            left:0;
+            right:0;
+            position: absolute;
+        }
+        .mob_tableRow{
+            height: 50%;
+            text-align: center;
+        }
+        .mob_leftBtn,.mob_rightBtn{
+            background-color: chartreuse;
+            width: 50px;
+        }
+        .mob_upBtn,.mob_downBtn{
+            background-color: purple;
+            width: 100px;
+        }
+        table{
+            margin: 0 auto;
+            border: 1px solid black;
+            height: 100%;
+        }
+
+        @media (hover: none) {
+            .mob_keyWrapper {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="person"></div>
+
+    <div class="mob_keyWrapper">
+        <div>
+            <div id="mob_keypad">
+                <table>
+                    <tr class="mob_tableRow">
+                        <td class="mob_btn mob_leftBtn" rowspan="2" data-move="left">Left</td>
+                        <td class="mob_btn mob_upBtn" colspan="2" data-move="up">Up</td>
+                        <td class="mob_btn mob_rightBtn" rowspan="2" data-move="right">Right</td>
+                    </tr>
+                    <tr class="mob_tableRow">
+                        <td class="mob_btn mob_downBtn" colspan="2" data-move="down">Down</td>
+                        
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../src/js/move.js"></script>
+</body>
+</html>
