@@ -10,6 +10,7 @@ const edge = (dir) => {
             }else{
                 const move = currentTop-50;
                 person.style.top = move+"px";
+                person.style.backgroundPosition = `-32px -96px`;
             }
             break;
         case "left":
@@ -18,6 +19,7 @@ const edge = (dir) => {
             }else{
                 const move = currentLeft-50;
                 person.style.left = move+"px";
+                person.style.backgroundPosition = `-32px -32px`;
             }
             break;
         case "down":
@@ -27,6 +29,7 @@ const edge = (dir) => {
             }else{                        
                 const move = currentTop+50;
                 person.style.top = move+"px";
+                person.style.backgroundPosition = `-32px 0px`;
             }
             break;
         case "right":
@@ -35,6 +38,7 @@ const edge = (dir) => {
             }else{
                 const move = currentLeft+50;
                 person.style.left = move+"px";
+                person.style.backgroundPosition = `-32px -64px`;
             }
             break;
         default:
@@ -83,4 +87,9 @@ const mobAction = (ev) => {
 }
 for (let i = 0; i < mobButtons.length; i++) {
     mobButtons[i].addEventListener('click', mobAction, false);
+}
+
+
+const imgMove = (dir) => {
+    person.style.backgroundPosition = `-256px 0px`;
 }
