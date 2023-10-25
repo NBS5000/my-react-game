@@ -1,52 +1,45 @@
+:root{
+    --scale:32px;
+}
+*{
+    margin:0;
+}
+body{
+    background-color: beige;
+    background:url("../img/grid.png");
+    background-size: var(--scale) var(--scale);
+    background-repeat: repeat;
+}
 #person{
-    height: 32px;
+    height: var(--scale);
     width: 30px;
-    background: url('../img/detective.png') -32px 0px;
+    background: url('../img/detective.png') var(--scale) 0px;
     position: absolute;
     background-repeat: no-repeat;
     left: 0;
     top: 0;
+    z-index: 5;
 }
-.mob_keyWrapper{
-    width: 100vw;
-    height: 120px;
-    bottom: 0vh;
+.furniture{
     position: absolute;
-    display: none;
+    background-repeat: no-repeat;
+    z-index: 2;
 }
-.mob_keyWrapper div{
-    position: relative;
+.smallTable{
+    height: var(--scale);
+    width: var(--scale);
+    background: url('../img/furniture1.png') -4px -4px;
 }
-#mob_keypad{
-    width:50vw;
-    height:10vh;
-    margin: auto;
-    top:5vh;
-    bottom:0;
-    left:0;
-    right:0;
-    position: absolute;
+.sofaFront{
+    height: 40px;/*var(--scale);*/
+    width: 64px;/*var(--scale)*2;*/
+    background: url('../img/furniture1.png') -102px -189px;
 }
-.mob_tableRow{
-    height: 50%;
-    text-align: center;
+#smallTable_1{
+    left: calc(var(--scale)*1);
+    top: calc(var(--scale)*3);
 }
-.mob_leftBtn,.mob_rightBtn{
-    background-color: chartreuse;
-    width: 50px;
-}
-.mob_upBtn,.mob_downBtn{
-    background-color: purple;
-    width: 100px;
-}
-table{
-    margin: 0 auto;
-    border: 1px solid black;
-    height: 100%;
-}
-
-@media (pointer: coarse) {
-    .mob_keyWrapper {
-        display: block;
-    }
+#sofaFront_1{
+    left: calc(var(--scale)*3);
+    top: calc(var(--scale)*5);
 }

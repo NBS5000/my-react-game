@@ -1,25 +1,55 @@
-const person = document.getElementById("person");
+/*const person = document.getElementById("person");
+const obstacleList = [
+    {
+        "name":"chair",
+        "top": 96,
+        "left": 32
+    }
+];
+function checkObstacle(x,y){
+    console.log("Hello there");
+    let obstacle = 0;
+    for (let i = 0; i < obstacleList.length; i++) {
+        const el = obstacleList[i];
+        if(x==el.top&&y==el.left){
+            obstacle = obstacle+1;
+        }else{
+            obstacle = obstacle+0;
+        }
+        return obstacle;
+    }
+}
+
 const edge = (dir) => {
+    //debugger
     const currentPosition = person.node.getBoundingClientRect();
     const currentTop = currentPosition.top;
     const currentLeft = currentPosition.left;
+    const scale = 32;
     switch (dir) {
         case "up":
             if(currentTop < 50){
                 console.log("At the top");
             }else{
-                const move = currentTop-50;
+                const move = currentTop-scale;
                 person.style.top = move+"px";
                 person.style.backgroundPosition = `-32px -96px`;
             }
             break;
         case "left":
+            
             if(currentLeft < 50){
                 console.log("At the left");
             }else{
-                const move = currentLeft-50;
-                person.style.left = move+"px";
-                person.style.backgroundPosition = `-32px -32px`;
+                const intentLeft = currentLeft + scale;
+                const intentTop = currentTop;
+                if(checkObstacle(intentLeft,intentTop)){
+                    console.log("There's an obstacle")
+                }else{
+                    const move = currentLeft-scale;
+                    person.style.left = move+"px";
+                    person.style.backgroundPosition = `-32px -32px`;
+                }
             }
             break;
         case "down":
@@ -27,7 +57,7 @@ const edge = (dir) => {
             if(currentTop >= window.innerHeight-100){
                 console.log("At the bottom");
             }else{                        
-                const move = currentTop+50;
+                const move = currentTop+scale;
                 person.style.top = move+"px";
                 person.style.backgroundPosition = `-32px 0px`;
             }
@@ -36,7 +66,7 @@ const edge = (dir) => {
             if(currentLeft >= window.innerWidth-100){
                 console.log("At the right");
             }else{
-                const move = currentLeft+50;
+                const move = currentLeft+scale;
                 person.style.left = move+"px";
                 person.style.backgroundPosition = `-32px -64px`;
             }
@@ -92,4 +122,4 @@ for (let i = 0; i < mobButtons.length; i++) {
 
 const imgMove = (dir) => {
     person.style.backgroundPosition = `-256px 0px`;
-}
+}*/

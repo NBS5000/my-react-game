@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="./assets/css/keypad.css" type="text/css"-->
+    <style>
+        
+    </style>
+    <link rel="stylesheet" href="../src/css/style.css" type="text/css">
+</head>
+<body>
+    <div id="person"></div>
+    <div class="furniture obstacle smallTable" id="smallTable_1"></div>
+    <div class="furniture obstacle sofaFront" id="sofaFront_1"></div>
+
+    <div class="mob_keyWrapper">
+        <div>
+            <div id="mob_keypad">
+                <table>
+                    <tr class="mob_tableRow">
+                        <td class="mob_btn mob_leftBtn" rowspan="2" data-move="left">Left</td>
+                        <td class="mob_btn mob_upBtn" colspan="2" data-move="up">Up</td>
+                        <td class="mob_btn mob_rightBtn" rowspan="2" data-move="right">Right</td>
+                    </tr>
+                    <tr class="mob_tableRow">
+                        <td class="mob_btn mob_downBtn" colspan="2" data-move="down">Down</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/js/obstacles.js"></script>
+    <script>
+        const person = document.getElementById("person");
+        let facing,interact;
+        const obstacleList = list();
+        const edge = async (dir) => {
+            const position = person.getBoundingClientRect();
+            const currentPosition = {
+                top:position.top,
+                bottom:position.bottom,
+                left:position.left,
+                right:position.right
+            }
+            console.log("Obstacle: ",obstacleList);
+            const scale = 32;
+            function checkObstacle(x){
+                let obstacle = 0;
+                let focus;
+                for (let i = 0; i < obstacleList.length; i++) {
+                    debugger
+                    const el = obstacleList[i];
+                    console.log("El: ",el)
+                    console.log("x: ",x.top," - el",el.top)
+                    let w = 0,h = 0;
+                    let width=0,height=0;
+                    while(w<el.width){
+                        (scale*w)+x.left==el.left?width=width+1:width=width+0;
+                        
+                        w++;
+                    }while(h<el.height){
+                        (scale*h)+x.top==el.top?height=height+1:height=height+0;
+                        
+                        h++;
+                    }
+                    if(height&&width){
+                        obstacle = obstacle+1;
+                        focus = el.focus;
+                    }else{
+                        obstacle = obstacle+0;
+                    }
+                    !focus?focus="There's nothing here":focus=el.focus;
+                }
+                return [obstacle,focus];
+            }
+
+            
+            switch (dir) {
+                
+                case "up":
+                    if(position.top < scale){
+                        console.log("At the top");
+                    }else{
+                        const intent={
+                            top:position.top-scale,
+                            bottom:position.bottom,
+                            left:position.left,
+                            right:position.right
+                        }
+                        const obj = checkObstacle(intent);
+                        if(obj[0]){
+                            console.log("There's an obstacle")
+                            interact = obj[1];
+                        }else{
+                            const move = position.top-scale;
+                            person.style.top = move+"px";
+                            interact = "";
+                        }
+                    }
+                    person.style.backgroundPosition = `-32px -96px`;
+                    facing="top";
+                    break;
+                case "left":
+                    
+                    if(position.left < scale){
+                        console.log("At the left");
+                    }else{
+                        const intent={
+                            top:position.top,
+                            bottom:position.bottom,
+                            left:position.left-scale,
+                            right:position.right
+                        }
+                        const obj = checkObstacle(intent);
+                        if(obj[0]){
+                            console.log("There's an obstacle")
+                            interact = obj[1];
+                        }else{
+                            const move = position.left-scale;
+                            person.style.left = move+"px";
+                            interact = "";
+                        }
+                    }
+                    person.style.backgroundPosition = `-32px -32px`;
+                    facing = "left";
+                    break;0
+                case "down":
+                    //console.log(position.top >=window.innerHeight-100)
+                    if(position.top >= window.innerHeight-100){
+                        console.log("At the bottom");
+                    }else{                
+                        const intent={
+                            top:position.top+scale,
+                            bottom:position.bottom,
+                            left:position.left,
+                            right:position.right
+                        }
+                        const obj = checkObstacle(intent);
+                        if(obj[0]){
+                            console.log("There's an obstacle")
+                            interact = obj[1];
+                        }else{
+                            const move = position.top+scale;
+                            person.style.top = move+"px";
+                            interact = "";
+                        }
+                    }
+                    person.style.backgroundPosition = `-32px 0px`;
+                    facing="down";
+                    break;
+                case "right":
+                    
+                    if(position.left >= window.innerWidth-100){
+                    console.log("At the right");
+                    }else{
+                        const intent={
+                            top:position.top,
+                            bottom:position.bottom,
+                            left:position.left+scale,
+                            right:position.right
+                        }
+                        const obj = checkObstacle(intent);
+                        if(obj[0]){
+                            console.log("There's an obstacle")
+                            interact = obj[1];
+                        }else{
+                            const move = position.left+scale;
+                            person.style.left = move+"px";
+                            interact = "";
+                        }
+                    }
+                    person.style.backgroundPosition = `-32px -64px`;
+                    facing="right";
+                    break;
+                default:
+                    break;
+            }
+        }
+        const move = {
+            up() {
+                console.log("Moved up");
+                edge("up");
+            },
+            down() {
+                console.log("Moved down");
+                edge("down");
+            },
+            left(){
+                console.log("Moved left");
+                edge("left");
+            },
+            right(){
+                console.log("Moved right");
+                edge("right");
+            },
+        };
+        
+        const action = {
+            w: {keydown: move.up},
+            ArrowUp: {keydown: move.up},
+            s: {keydown: move.down},
+            ArrowDown: {keydown: move.down},
+            a: {keydown: move.left},
+            ArrowLeft: {keydown: move.left},
+            d: {keydown: move.right},
+            ArrowRight: {keydown: move.right},
+            Space: {keydown:()=>{console.log("Focus: ",interact)}}
+        }
+        const handler = (ev) => {
+            console.log("test: ",ev.code);
+            action[ev.code][ev.type]();
+        };
+        ['keydown'].forEach((evType) => {
+            document.body.addEventListener(evType,handler);
+        });
+        const mobButtons = document.getElementsByClassName("mob_btn");
+        const mobAction = (ev) => {
+            const dir = ev.target.dataset.move
+            edge(dir);
+        }
+        for (let i = 0; i < mobButtons.length; i++) {
+            mobButtons[i].addEventListener('click', mobAction, false);
+        }
+        const imgMove = (dir) => {
+            person.style.backgroundPosition = `-256px 0px`;
+        }
+
+    </script>
+</body>
+</html>
