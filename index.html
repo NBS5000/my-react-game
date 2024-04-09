@@ -6,15 +6,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="./assets/css/keypad.css" type="text/css"-->
-    <style>
-        
-    </style>
     <link rel="stylesheet" href="../src/css/style.css" type="text/css">
 </head>
 <body>
+    <div id="room"></div>
     <div id="person"></div>
-    <div class="furniture obstacle smallTable" id="smallTable_1"></div>
-    <div class="furniture obstacle sofaFront" id="sofaFront_1"></div>
+    <div id="obstacleList"></div>
+    <!--div class="furniture obstacle smallTable" id="smallTable_1"></!--div>
+    <div-- class="furniture obstacle sofaFront" id="sofaFront_1"></div-->
 
     <div class="mob_keyWrapper">
         <div>
@@ -33,49 +32,53 @@
         </div>
     </div>
     <script src="./assets/js/obstacles.js"></script>
+    <script src="./assets/js/renderObstacles.js"></script>
+    <script src="./assets/js/checkForObstacle.js"></script>
+<script>
+    function renderObstacle(){
+    const obstacleList = list();
+    const scale = 32;
+    for (let i = 0; i < obstacleList.length; i++) {
+        const el = obstacleList[i];
+        const baseDiv = document.getElementById("obstacleList");
+
+        for (let i = 0; i < obstacleList.length; i++) {
+            const el = obstacleList[i];
+            const elStyle=`
+            height:${scale*el.height}px;
+            width:${scale*el.width}px;
+            top:${scale*el.top}px;
+            left:${scale*el.left}px;
+            background:${el.imgPos};`;
+            
+            const insert = document.createElement("div");
+            insert.style.cssText = elStyle;
+            insert.classList = el.classes;
+            baseDiv.appendChild(insert);   
+        }
+    }
+    
+}
+renderObstacle();
+</script>
     <script>
         const person = document.getElementById("person");
         let facing,interact;
-        const obstacleList = list();
+        //const obstacleList = list();
         const edge = async (dir) => {
-            const position = person.getBoundingClientRect();
+            const scale = 32;
+            let position = person.getBoundingClientRect();
+            position.width=scale;
             const currentPosition = {
                 top:position.top,
                 bottom:position.bottom,
                 left:position.left,
                 right:position.right
             }
-            console.log("Obstacle: ",obstacleList);
-            const scale = 32;
-            function checkObstacle(x){
-                let obstacle = 0;
-                let focus;
-                for (let i = 0; i < obstacleList.length; i++) {
-                    debugger
-                    const el = obstacleList[i];
-                    console.log("El: ",el)
-                    console.log("x: ",x.top," - el",el.top)
-                    let w = 0,h = 0;
-                    let width=0,height=0;
-                    while(w<el.width){
-                        (scale*w)+x.left==el.left?width=width+1:width=width+0;
-                        
-                        w++;
-                    }while(h<el.height){
-                        (scale*h)+x.top==el.top?height=height+1:height=height+0;
-                        
-                        h++;
-                    }
-                    if(height&&width){
-                        obstacle = obstacle+1;
-                        focus = el.focus;
-                    }else{
-                        obstacle = obstacle+0;
-                    }
-                    !focus?focus="There's nothing here":focus=el.focus;
-                }
-                return [obstacle,focus];
-            }
+
+            //console.log("Obstacle: ",obstacleList);
+            
+
 
             
             switch (dir) {
@@ -138,6 +141,7 @@
                             left:position.left,
                             right:position.right
                         }
+                        debugger
                         const obj = checkObstacle(intent);
                         if(obj[0]){
                             console.log("There's an obstacle")
@@ -160,8 +164,10 @@
                             top:position.top,
                             bottom:position.bottom,
                             left:position.left+scale,
-                            right:position.right
+                            right:position.right+scale
                         }
+                        console.log("position: ",position);
+                        console.log("intent: ", intent)
                         const obj = checkObstacle(intent);
                         if(obj[0]){
                             console.log("There's an obstacle")
@@ -210,7 +216,7 @@
             Space: {keydown:()=>{console.log("Focus: ",interact)}}
         }
         const handler = (ev) => {
-            console.log("test: ",ev.code);
+            /*console.log("test: ",ev.code);*/
             action[ev.code][ev.type]();
         };
         ['keydown'].forEach((evType) => {
